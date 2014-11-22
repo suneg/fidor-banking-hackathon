@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <body>
+    <h1>Hi {{ account.customers.0.first_name }}</h1><br/><br/>
+    
+    <h2>Balance: {{ account.currency }} {{ account.balance }}</h2>
+    Account #: {{ account.account_number }}
+
+    <br/><br/>
+    <a href="/transfer/">Send 1 euro to Mads</a>
+    </body>
+</html>

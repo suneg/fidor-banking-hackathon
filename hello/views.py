@@ -17,9 +17,18 @@ def index(request):
     account = fidor.accounts.get(8)
     transactions = fidor.transactions.all(params={'per_page': 200 })
     
-    print account['balance']
+    savings = 0
+    goal_cost = 1000
+    magic_word = 'kaffe'
 
-    return render(request, 'index.html', {'account': account, 'transactions': transactions})
+    for t in transactions['data']:
+        if t['subject'] is not None:
+            if t['subject'].find(magic_word) > -1 and t['amount'] > 0:
+                savings = savings + t['amount']
+
+    progress = (savings *100)/ goal_cost
+
+    return render(request, 'index.html', {'account': account, 'transactions': transactions, 'progress': progress})
 
 def transfer(request):
     fidor = FidorClient(access_token, api_url)

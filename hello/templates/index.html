@@ -12,6 +12,14 @@
     <body>
     <h1>Hi {{ account.customers.0.first_name }}</h1><br/><br/>
     
+    <h2>Bike progress {{ progress }}%</h2>
+
+    <div style="width:100%;background-color:gray;height:100px">
+    <div style="width:{% widthratio progress 1 10 %}px;background-color:green;height:100px;background-image:url('http://ecx.images-amazon.com/images/I/81ssBclIXWL._SL1500_.jpg');background-size:contain">
+    &nbsp;
+    </div>
+    </div>
+
     <h2>Balance: {{ account.currency }} {{ account.balance }}</h2>
     Account #: {{ account.account_number }}
 

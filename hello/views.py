@@ -15,8 +15,11 @@ api_url = 'https://aps.fidor.de'
 def index(request):
     fidor = FidorClient(access_token, api_url)
     account = fidor.accounts.get(8)
+    transactions = fidor.transactions.all(params={'per_page': 200 })
     
-    return render(request, 'index.html', {'account': account})
+    print account['balance']
+
+    return render(request, 'index.html', {'account': account, 'transactions': transactions})
 
 def transfer(request):
     fidor = FidorClient(access_token, api_url)
@@ -32,7 +35,7 @@ def transfer(request):
 
     payload = {
         'account_id': 8,
-        'amount': 1,
+        'amount': 100,
         'remote_iban': 'DE04333706726265131076',
         'external_uid': int(time.time()),
         'subject': 'Tak for kaffe!'
@@ -42,9 +45,10 @@ def transfer(request):
 
     print fidor.sepa_credit_transfers.create(payload)
     account = fidor.accounts.get(8)
+    transactions = fidor.transactions.all()
 
-
-    return render(request,'transfer.html', {'account': account})
+    return render(request,'transfer.html', 
+        {'account': account, 'transactions': transactions})
 
 def db(request):
 

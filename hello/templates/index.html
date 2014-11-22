@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <style type="text/css">
+            table {
+                border-collapse: collapse;
+            }
+            td { border:1px solid gray; padding: 8px;}
+        </style>
+    </head>
+
     <body>
     <h1>Hi {{ account.customers.0.first_name }}</h1><br/><br/>
     
@@ -8,5 +17,24 @@
 
     <br/><br/>
     <a href="/transfer/">Send 1 euro to Mads</a>
+    <br/>
+    <br/>
+
+
+    <table>
+        {% for t in transactions.data %}
+        <tr>
+            <td>
+                {{ t.booking_date }}
+            </td>
+            <td>
+                {{ t.subject }}
+            </td>
+            <td>
+                {{ t.amount }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
     </body>
 </html>
